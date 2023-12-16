@@ -22,6 +22,11 @@ class EngeliGor():
                 
         except IndexError:
             print("Herhangi bir nesne bulunamadı!!!")
+            hareket_komutlari = Twist()
+            hareket_komutlari.angular.z = 0.3 
+            turtlebot_kamera.pub.publish(hareket_komutlari)
+            
+            
 
 class TurtleBotKamera():
     def __init__(self):
@@ -48,6 +53,8 @@ if __name__ == "__main__":
 
     turtlebot_kamera = TurtleBotKamera()
     nesne_tanima = EngeliGor()
+    
+    rospy.spin()
 
     rate = rospy.Rate(10)  
     while not rospy.is_shutdown():
@@ -57,3 +64,6 @@ if __name__ == "__main__":
         turtlebot_kamera.pub.publish(hareket_komutlari)
 
         rate.sleep()
+    
+    
+    rospy.spin()
